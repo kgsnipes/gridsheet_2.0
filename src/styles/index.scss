@@ -1,0 +1,15 @@
+$body-color: black;
+$border-color:#eeeeee;
+$border-innerContainerColor:#000000;
+body {
+  color: $body-color;
+}
+
+div.gridsheet
+{
+  overflow: scroll;
+  border:1px solid $border-color;
+  div.innerContainer{
+    border:1px solid $border-innerContainerColor;
+  }
+}
