@@ -1,15 +1,57 @@
 $body-color: black;
 $border-color:#eeeeee;
 $border-innerContainerColor:#000000;
+$border-topbar:red;
+$border-bottombar:green;
+$border-sheetContainerColor:blue;
+$border-sheetButton:1px solid grey;
+
+
 body {
   color: $body-color;
 }
 
 div.gridsheet
 {
-  overflow: scroll;
+  overflow: hidden;
   border:1px solid $border-color;
-  div.innerContainer{
+  div.innercontainer{
     border:1px solid $border-innerContainerColor;
+    overflow: scroll;
+    position: absolute;
+    top:inherit;
+
+    div.sheetcontainer
+    {
+      div.sheet
+      {
+        position: absolute;
+        top:0px;
+      }
+    }
   }
+  div.topbar
+  {
+    position: absolute;
+    top:inherit;
+    border:1px solid $border-topbar;
+  }
+  div.bottombar
+  {
+    position: absolute;
+    border:1px solid $border-bottombar;
+    div.sheetbutton
+    {
+      float:left;
+      padding:5px;
+      margin-right:1px;
+      border:$border-sheetButton;
+      cursor: pointer;
+    }
+  }
+}
+
+.hide
+{
+  display:none;
 }

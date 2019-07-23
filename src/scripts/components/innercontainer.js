@@ -1,14 +1,13 @@
 import GridSheetComponent from './component';
-import GridSheet from './sheet';
+import GridSheetSheetContainer from './sheetcontainer';
 import GridSheetLogger from  '../common/logger';
+
 
 class GridSheetInnerContainer extends GridSheetComponent
 {
     constructor(element,options)
     {
         super(element,options);
-        this.sheetCount=1;
-        this.sheets=new Array();
         this.logger=new GridSheetLogger(this.constructor.name);
         this.render();
     }
@@ -16,7 +15,7 @@ class GridSheetInnerContainer extends GridSheetComponent
     render()
     {
         this.createInnerContainerDOM();
-        this.addSheetsToInnerContainer();
+        this.addSheetContainer();
     }
 
     createInnerContainerDOM()
@@ -24,44 +23,32 @@ class GridSheetInnerContainer extends GridSheetComponent
         this.element=document.createElement('div');
         this.element.style.width=this.getWidthForInnerContainer(this.options.dimension.width)+this.options.dimension.units;
         this.element.style.height=this.getHeightForInnerContainer(this.options.dimension.height)+this.options.dimension.units;
-        this.element.setAttribute('class','innerContainer');
-        this.options.parent.appendChild(this.element);
+        this.element.style.top=this.getInnerContainerTop()+this.options.dimension.units;
+        this.element.classList.add("innercontainer");
+        this.options.parent.element.appendChild(this.element);
     }
 
-    
-
-    addSheetsToInnerContainer()
+    addSheetContainer()
     {
-        this.logger.info('adding sheets');
-        Array(this.options.initialSheets).fill(1).forEach((e)=>{ 
-            this.sheets.push(this.addSheetForInnerContainer(this.sheetCount,this.getSheetName(this.sheetCount,null)));
-            this.sheetCount++;
-        }) ;   
+        this.sheetContainer=new GridSheetSheetContainer(null,Object.assign({}, this.options, {parent:this})); 
     }
 
-    addSheetForInnerContainer(name,sheetNum)
+
+    getInnerContainerTop()
     {
-        return new GridSheet(null,Object.assign({}, this.options, {parent:this.element,sheetName:name,sheetNumber:sheetNum}));
+        
+        let parentClientRect=this.options.parent.element.getBoundingClientRect();
+        return parentClientRect.top+this.options.topbarHeight;
     }
 
-    getSheetName(count,name)
-    {
-        if(name)
-        {
-            return name+' '+count;
-        }
-        else{
-            return this.options.defaultSheetNamePrefix+' '+count;
-        }
-    }
 
     getWidthForInnerContainer(outerContainerWidth)
     {
-        return outerContainerWidth*2;
+        return outerContainerWidth;
     }
-    getHeightForInnerContainer(outerContainerWidth)
+    getHeightForInnerContainer(outerContainerHeight)
     {
-        return outerContainerWidth*2;
+        return outerContainerHeight-(this.options.topbarHeight+this.options.bottombarHeight);
     }
 }
 

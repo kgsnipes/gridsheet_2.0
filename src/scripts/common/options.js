@@ -10,6 +10,8 @@ const GridSheetOptions={
             defaultContentColor:'#000000',
             currentContentColor:'#000000',
             initialSheets:3,
-            defaultSheetNamePrefix:'untitled'
+            defaultSheetNamePrefix:'untitled',
+            topbarHeight:100,
+            bottombarHeight:30
 };
 export default GridSheetOptions;
