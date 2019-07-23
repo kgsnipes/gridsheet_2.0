@@ -1,12 +1,15 @@
 import GridSheetComponent from './component';
 import GridSheetLogger from  '../common/logger';
 import GridSheetSheetButton from './sheetbutton';
+import GridSheetColumn from './column';
 class GridSheet extends GridSheetComponent
 {
     constructor(element,options)
     {
         super(element,options);
         this.logger=new GridSheetLogger(this.constructor.name);
+        this.columns=new Array();
+        this.columnCount=0;
         this.render();
     }
 
@@ -17,26 +20,29 @@ class GridSheet extends GridSheetComponent
         this.sheetNumber=this.options.sheetNumber;
         this.addSheetDOM();
         this.addSheetButtonToBottomBar();
+        this.addColumnsToSheet();
     }
 
-    // createColumns()
-    // {
-    //     this.columns.push(new GridSheetColumn(null,Object.assign({}, this.options, {parent:this.element,isGutter:true})));
-    //     Array(this.options.initialColumns).forEach((e)=>{
-    //         this.columns.push(new GridSheetColumn(null,Object.assign({}, this.options, {parent:this.element,isGutter:false})));
-    //     }) ;   
-    // }
+    addColumnsToSheet()
+    {
+        this.columns.push(new GridSheetColumn(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnCount,isGutter:true})));
+        this.columnCount++;
+        Array(this.options.initialColumns).fill(1).forEach((e)=>{
+            this.columns.push(new GridSheetColumn(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnCount,isGutter:false})));
+            this.columnCount++;
+        }) ;   
+    }
 
     addSheetDOM()
     {
         this.logger.info('adding sheet to DOM');
         this.element=document.createElement('div');
-        this.element.style.width=this.options.parent.element.style.width;
-        this.element.style.height=this.options.parent.element.style.height;
+        //this.element.style.width=this.options.parent.element.style.width;
+        //this.element.style.height=this.options.parent.element.style.height;
         this.element.classList.add("sheet");
        
         this.element.setAttribute('id','sheet_'+this.sheetNumber);
-        this.element.innerHTML=this.sheetName;
+        //this.element.innerHTML=this.sheetName;
         this.options.parent.element.appendChild(this.element);
         if(!this.options.isVisible)
         {
@@ -46,8 +52,8 @@ class GridSheet extends GridSheetComponent
 
     addSheetButtonToBottomBar()
     {
-        let bottomBar=this.options.parent.options.parent.options.parent.bottomBar;
-        bottomBar.sheetButtons.push(new GridSheetSheetButton(null,Object.assign({}, this.options, {parent:bottomBar,sheetName:this.sheetName,sheetNumber:this.sheetNumber})));
+        let sheetButtonContainer=this.options.parent.options.parent.options.parent.bottomBar.sheetButtonContainer;
+        sheetButtonContainer.sheetButtons.push(new GridSheetSheetButton(null,Object.assign({}, this.options, {parent:sheetButtonContainer,sheetName:this.sheetName,sheetNumber:this.sheetNumber})));
     }
 }
 

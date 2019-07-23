@@ -35,10 +35,11 @@ class GridSheetSheetButton extends GridSheetComponent
     addEventListener()
     {
         this.element.addEventListener('click',(evt)=>{
-            document.querySelectorAll('div.gridsheet>div.innercontainer>div.sheetcontainer>div.sheet').forEach(ele=>{
+            let outerContainer=this.element.parentNode.parentNode.parentNode;
+            outerContainer.querySelectorAll('div.innercontainer>div.sheetcontainer>div.sheet').forEach(ele=>{
                 ele.classList.add('hide');
             });
-            document.querySelector('div.gridsheet>div.innercontainer>div.sheetcontainer>div#sheet_'+this.sheetNumber).classList.remove('hide');
+            outerContainer.querySelector('div.innercontainer>div.sheetcontainer>div#sheet_'+this.sheetNumber).classList.remove('hide');
         });
 
     }

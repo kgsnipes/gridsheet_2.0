@@ -1,5 +1,6 @@
 import GridSheetComponent from './component';
 import GridSheetLogger from  '../common/logger';
+import GridSheetSheetButtonContainer from './sheetbuttoncontainer';
 
 class GridSheetBottomBar extends GridSheetComponent
 {
@@ -7,7 +8,7 @@ class GridSheetBottomBar extends GridSheetComponent
     {
         super(element,options);
         this.logger=new GridSheetLogger(this.constructor.name);
-        this.sheetButtons=new Array();
+        
         this.render();
     }
 
@@ -19,9 +20,14 @@ class GridSheetBottomBar extends GridSheetComponent
         this.element.style.top=this.getBottomBarTop()+this.options.dimension.units;
         this.element.classList.add("bottombar");
         this.options.parent.element.appendChild(this.element);
+        this.addSheetButtonContainer();
 
     }
 
+    addSheetButtonContainer()
+    {
+        this.sheetButtonContainer=new GridSheetSheetButtonContainer(null,Object.assign({}, this.options, {parent:this}));
+    }
    
 
     getBottomBarTop()

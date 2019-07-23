@@ -5,8 +5,8 @@ $border-topbar:red;
 $border-bottombar:green;
 $border-sheetContainerColor:blue;
 $border-sheetButton:1px solid grey;
-
-
+$gutter-backgroundColor:#ccc;
+$row-defaultBorderColor:#000000;
 body {
   color: $body-color;
 }
@@ -23,10 +23,26 @@ div.gridsheet
 
     div.sheetcontainer
     {
+      width:inherit;
       div.sheet
       {
         position: absolute;
         top:0px;
+        div.column
+        {
+          float:left;
+          div.row
+          {
+              width:inherit;
+              border:1px solid $row-defaultBorderColor;
+          }
+          div.gutter
+          {
+              background-color: $gutter-backgroundColor;
+              border:1px solid $row-defaultBorderColor;
+          }
+        }
+        
       }
     }
   }
@@ -40,14 +56,20 @@ div.gridsheet
   {
     position: absolute;
     border:1px solid $border-bottombar;
-    div.sheetbutton
+    div.sheetbuttoncontainer
     {
-      float:left;
-      padding:5px;
-      margin-right:1px;
-      border:$border-sheetButton;
-      cursor: pointer;
+      width:inherit;
+      height:inherit;
+      div.sheetbutton
+      {
+        float:left;
+        padding:5px;
+        margin-right:1px;
+        border:$border-sheetButton;
+        cursor: pointer;
+      }
     }
+    
   }
 }
 
