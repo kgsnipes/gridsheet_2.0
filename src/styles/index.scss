@@ -7,14 +7,21 @@ $border-sheetContainerColor:blue;
 $border-sheetButton:1px solid grey;
 $gutter-backgroundColor:#ccc;
 $row-defaultBorderColor:#000000;
-body {
-  color: $body-color;
-}
 
 div.gridsheet
 {
+  color: $body-color;
+  font-family: Helvetica;
   overflow: hidden;
   border:1px solid $border-color;
+  div.loader
+  {
+    position: absolute;
+    top: inherit;
+    left:inherit;
+    background-color: $gutter-backgroundColor;
+    opacity: 0.5;
+  }
   div.innercontainer{
     border:1px solid $border-innerContainerColor;
     overflow: scroll;
@@ -28,19 +35,29 @@ div.gridsheet
       {
         position: absolute;
         top:0px;
+        left:0px;
         div.column
         {
-          float:left;
+          position: absolute;
+          // float:left;
+          top:0px;
           div.row
           {
               width:inherit;
               border:1px solid $row-defaultBorderColor;
+              
           }
           div.gutter
           {
               background-color: $gutter-backgroundColor;
               border:1px solid $row-defaultBorderColor;
               text-align: center;
+          }
+
+          div.columnresizehandle
+          {
+            position: absolute;
+            border:1px solid $row-defaultBorderColor;
           }
         }
         
@@ -68,6 +85,12 @@ div.gridsheet
         margin-right:1px;
         border:$border-sheetButton;
         cursor: pointer;
+        background-color: #ccc;
+      }
+      div.active
+      {
+        @extend div.sheetbutton;
+        background-color: #ffffff;
       }
     }
     

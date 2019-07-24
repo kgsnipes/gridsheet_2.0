@@ -39,9 +39,9 @@ class GridSheetSheetContainer extends GridSheetComponent
            
     }
 
-    addSheetForInnerContainer(name,sheetNum,isVisible)
+    addSheetForInnerContainer(name,sheetNum,isActive)
     {
-        return new GridSheet(null,Object.assign({}, this.options, {parent:this,sheetName:name,sheetNumber:sheetNum,isVisible:isVisible}));
+        return new GridSheet(null,Object.assign({}, this.options, {parent:this,sheetName:name,sheetNumber:sheetNum,isActive:isActive}));
     }
 
     getSheetName(count,name)

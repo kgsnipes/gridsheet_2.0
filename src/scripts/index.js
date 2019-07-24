@@ -22,7 +22,8 @@ class GridsheetApp
 
     renderSheetOuterContainer()
     {
-        this.outerContainer=new GridSheetOuterContainer(this.element,Object.assign({}, this.options, {parent:this.outerContainer}));     
+        this.outerContainer=new GridSheetOuterContainer(this.element,Object.assign({}, this.options, {parent:this.outerContainer}));  
+        this.outerContainer.render();   
     }
 
     

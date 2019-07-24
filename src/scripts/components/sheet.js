@@ -25,13 +25,15 @@ class GridSheet extends GridSheetComponent
 
     addColumnsToSheet()
     {
-        this.columns.push(new GridSheetColumn(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnCount,isGutter:true})));
+        this.gutterColumn=new GridSheetColumn(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnCount,isGutter:true}));
+        this.columns.push(this.gutterColumn);
         this.columnCount++;
         for(let i=0;i<this.options.initialColumns;i++)
         {
             this.columns.push(new GridSheetColumn(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnCount,isGutter:false})));
             this.columnCount++;
         }
+        
         
     }
 
@@ -46,7 +48,7 @@ class GridSheet extends GridSheetComponent
         this.element.setAttribute('id','sheet_'+this.sheetNumber);
         //this.element.innerHTML=this.sheetName;
         this.options.parent.element.appendChild(this.element);
-        if(!this.options.isVisible)
+        if(!this.options.isActive)
         {
             this.element.classList.add('hide');
         }
@@ -55,7 +57,17 @@ class GridSheet extends GridSheetComponent
     addSheetButtonToBottomBar()
     {
         let sheetButtonContainer=this.options.parent.options.parent.options.parent.bottomBar.sheetButtonContainer;
-        sheetButtonContainer.sheetButtons.push(new GridSheetSheetButton(null,Object.assign({}, this.options, {parent:sheetButtonContainer,sheetName:this.sheetName,sheetNumber:this.sheetNumber})));
+        this.sheetButton=new GridSheetSheetButton(null,Object.assign({}, this.options, {parent:sheetButtonContainer,sheetName:this.sheetName,sheetNumber:this.sheetNumber,isActive:this.options.isActive,sheet:this}));
+        sheetButtonContainer.sheetButtons.push(this.sheetButton);
+    }
+
+    showSheet()
+    {
+        this.element.classList.remove('hide');
+    }
+    hideSheet()
+    {
+        this.element.classList.add('hide');
     }
 }
 

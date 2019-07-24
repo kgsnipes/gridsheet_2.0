@@ -29,8 +29,9 @@ class GridSheetCell extends GridSheetComponent
             this.autoWidth=true;
             this.element.classList.add("gutter");
             this.addGutterInformation();
+            this.addResizeHandles();
         }
-        this.updateColumnWidth();
+        //this.updateColumnWidth();
         
     }
 
@@ -75,17 +76,29 @@ class GridSheetCell extends GridSheetComponent
         return GridSheetUtil.getColumnNameFromColumnNumber(this.columnNumber);
     }
 
-    updateColumnWidth()
+    
+
+    getWidthForAdjustment()
     {
-        if(this.isGutter && this.autoWidth)
+        let contentWidth=this.getContentWidth();
+        let column=this.options.parent.element;
+        if(column.getBoundingClientRect().width>contentWidth && this.rowNumber==0)
         {
-            this.options.parent.element.style.width=(this.cellContent.length*5)+this.options.dimension.units;
+            return 0;
+        }
+        else{
+            return contentWidth;
         }
     }
 
     getContentWidth()
+    { 
+        return GridSheetUtil.getTextDisplayWidth(this.cellContent,this)+this.options.gutterPadding;
+    }
+
+    addResizeHandles()
     {
-        
+
     }
 
 

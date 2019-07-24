@@ -8,6 +8,7 @@ class GridSheetSheetButton extends GridSheetComponent
         super(element,options);
         this.logger=new GridSheetLogger(this.constructor.name);
         this.render();
+        this.sheet=options.sheet;
     }
 
     render()
@@ -26,6 +27,10 @@ class GridSheetSheetButton extends GridSheetComponent
         //this.element.style.height=this.options.parent.element.style.height;
         
         this.element.classList.add("sheetbutton");
+        if(this.options.isActive)
+        {
+            this.element.classList.add("active");
+        }
         this.element.setAttribute('id','sheetbutton_'+this.sheetNumber);
         this.element.style.width=this.getSheetButtonWidth()+this.options.dimension.units;
         this.element.innerHTML=this.sheetName;
@@ -34,14 +39,28 @@ class GridSheetSheetButton extends GridSheetComponent
 
     addEventListener()
     {
+        let outerContainer=this.options.parent.options.parent.options.parent;
         this.element.addEventListener('click',(evt)=>{
-            let outerContainer=this.element.parentNode.parentNode.parentNode;
-            outerContainer.querySelectorAll('div.innercontainer>div.sheetcontainer>div.sheet').forEach(ele=>{
-                ele.classList.add('hide');
+            outerContainer.innerContainer.sheetContainer.sheets.forEach(sheet => {
+                if(sheet.sheetNumber===this.sheetNumber){
+                    sheet.showSheet();  
+                }
+                else{
+                    sheet.hideSheet();
+                    sheet.sheetButton.makeInActive();
+                }
             });
-            outerContainer.querySelector('div.innercontainer>div.sheetcontainer>div#sheet_'+this.sheetNumber).classList.remove('hide');
+             this.makeActive();
         });
+    }
 
+    makeActive()
+    {
+        this.element.classList.add('active');
+    }
+    makeInActive()
+    {
+        this.element.classList.remove('active');
     }
 
     getSheetButtonWidth()
