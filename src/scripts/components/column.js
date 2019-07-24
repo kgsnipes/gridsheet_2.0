@@ -100,7 +100,7 @@ class GridSheetColumn extends GridSheetComponent
 
     addResizeHandles()
     {
-        //this.columnResizehandle=new GridSheetColumnResizer(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnNumber,isGutter:this.options.isGutter}));
+        this.columnResizehandle=new GridSheetColumnResizer(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnNumber,isGutter:this.options.isGutter}));
     }
 
     updateOtherColumnsLeftPosition(widthDifference)

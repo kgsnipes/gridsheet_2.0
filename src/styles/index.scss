@@ -57,7 +57,8 @@ div.gridsheet
           div.columnresizehandle
           {
             position: absolute;
-            border:1px solid $row-defaultBorderColor;
+            // border:1px solid $row-defaultBorderColor;
+            cursor:ew-resize;
           }
         }
         
