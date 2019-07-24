@@ -13,12 +13,12 @@ class GridSheetUtil
         {
           let r=colNum%chars.length;
           if(r===0)
-            return this.getColumnName(colName+chars.charAt((colNum/chars.length)-2),chars.length);
+            return this.getColumnName(chars.charAt((colNum/chars.length)-2)+colName,chars.length);
           else
-            return this.getColumnName(colName+chars.charAt((colNum/chars.length)-1),r);
+            return this.getColumnName(chars.charAt((colNum/chars.length)-1)+colName,r);
         }
       else{
-        return this.reverseString(chars.charAt(colNum-1)+colName);
+        return colName+chars.charAt(colNum-1);
       }
     }
     
