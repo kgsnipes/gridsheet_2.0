@@ -1,5 +1,5 @@
 import GridSheetComponent from './component';
-import GridSheetRow from  './row';
+import GridSheetCell from  './cell';
 
 class GridSheetColumn extends GridSheetComponent
 {
@@ -8,7 +8,7 @@ class GridSheetColumn extends GridSheetComponent
         super(element,options);
         this.options=options;
         this.columnNumber=this.options.columnNumber;
-        this.rows=new Array();
+        this.cells=new Array();
         this.rowCount=0;
         this.render();
     }
@@ -36,12 +36,14 @@ class GridSheetColumn extends GridSheetComponent
 
     addRows()
     {
-        this.rows.push(new GridSheetRow(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnCount,rowNumber:this.rowCount,isGutter:true})));
+        this.cells.push(new GridSheetCell(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnNumber,rowNumber:this.rowCount,isGutter:true})));
         this.rowCount++;
-        Array(this.options.initialRows).fill(1).forEach((e)=>{
-            this.rows.push(new GridSheetRow(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnCount,rowNumber:this.rowCount,isGutter:this.options.isGutter})));
+        for(let i=0;i<this.options.initialRows;i++)
+        {
+            this.cells.push(new GridSheetCell(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnNumber,rowNumber:this.rowCount,isGutter:this.options.isGutter})));
             this.rowCount++;
-        }) ;   
+        }
+        
     }
 }
 

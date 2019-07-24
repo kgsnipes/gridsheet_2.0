@@ -4,9 +4,9 @@ const GridSheetOptions={
                 height:800,
                 units:'px'
             },
-            initialColumns:10,
+            initialColumns:100,
             defaultColumnWidth:100,
-            initialRows:500,
+            initialRows:100,
             defaultRowHeight:30,
             gutterColumnColor:'#cccccc',
             defaultContentColor:'#000000',

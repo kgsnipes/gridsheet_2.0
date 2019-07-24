@@ -27,10 +27,12 @@ class GridSheet extends GridSheetComponent
     {
         this.columns.push(new GridSheetColumn(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnCount,isGutter:true})));
         this.columnCount++;
-        Array(this.options.initialColumns).fill(1).forEach((e)=>{
+        for(let i=0;i<this.options.initialColumns;i++)
+        {
             this.columns.push(new GridSheetColumn(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnCount,isGutter:false})));
             this.columnCount++;
-        }) ;   
+        }
+        
     }
 
     addSheetDOM()
