@@ -69,6 +69,20 @@ class GridSheet extends GridSheetComponent
     {
         this.element.classList.add('hide');
     }
+
+    updateSheetWidth()
+    {
+        this.options.parent.element.style.width=this.addWidthToSheet()+this.options.dimension.units;
+    }
+
+    addWidthToSheet()
+    {
+        let colWidth=0;
+       this.columns.forEach(col=>{
+            colWidth+=col.getWidth();
+       });
+       return colWidth;
+    }
 }
 
 export default GridSheet;

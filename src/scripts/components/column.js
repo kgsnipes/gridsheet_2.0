@@ -30,20 +30,12 @@ class GridSheetColumn extends GridSheetComponent
         }
         
         this.options.parent.element.appendChild(this.element);
-        this.updateSheetWidth();
+        this.options.parent.updateSheetWidth();
         this.addRows();
         this.addResizeHandles();
     }
 
-    updateSheetWidth()
-    {
-        this.options.parent.element.style.width=this.addWidthToSheet()+this.options.dimension.units;
-    }
-
-    addWidthToSheet()
-    {
-       return (this.options.parent.columnCount+2)*this.element.getBoundingClientRect().width;
-    }
+    
 
     addRows()
     {
@@ -77,15 +69,21 @@ class GridSheetColumn extends GridSheetComponent
 
     setWidth(width)
     {
-        let previousWidth=this.element.getBoundingClientRect().width;
         this.element.style.width=width+this.options.dimension.units;
+    }
+
+    adjustWidth(width)
+    {
+        let previousWidth=this.element.getBoundingClientRect().width;
+        this.element.style.width=(previousWidth+width)+this.options.dimension.units;
         let currentWidth=this.element.getBoundingClientRect().width;
-        //console.log()
-       // this.updateOtherColumnsLeftPosition(previousWidth-currentWidth);
+       
+        this.updateOtherColumnsLeftPosition(width);
     }
     getWidth()
     {
-        return this.element.getBoundingClientRect().width;
+        //return this.element.getBoundingClientRect().width;
+        return parseInt(this.element.style.width.substring(0,this.element.style.width.indexOf('px')));
     }
 
     setLeftPosition(left)
@@ -95,7 +93,9 @@ class GridSheetColumn extends GridSheetComponent
 
     getLeftPosition()
     {
-        return this.element.getBoundingClientRect().left;
+        //return this.element.getBoundingClientRect().left;
+        //console.log(this.element.style.left);
+        return parseInt(this.element.style.left.substring(0,this.element.style.left.indexOf('px')));
     }
 
     addResizeHandles()
@@ -105,14 +105,15 @@ class GridSheetColumn extends GridSheetComponent
 
     updateOtherColumnsLeftPosition(widthDifference)
     {
-       
+        
         this.options.parent.columns.forEach((col)=>{
             
             if(col.columnNumber>this.columnNumber)
             {
-                console.log('widthDifference'+widthDifference);
-                col.setLeftPosition((this.getLeftPosition()*(col.columnNumber-this.columnNumber))+widthDifference);
+                col.setLeftPosition(widthDifference+col.getLeftPosition());
             }
+            
+            
         });
     }
 }

@@ -1,7 +1,7 @@
 const GridSheetOptions={
     dimension:{
                 width:1000,
-                height:800,
+                height:400,
                 units:'px'
             },
             initialColumns:10,
@@ -17,6 +17,6 @@ const GridSheetOptions={
             bottombarHeight:30,
             defaultFontFamily:'Helvetica',
             gutterPadding:5,
-            columnResizeHandlesWidth:5
+            columnResizeHandlesWidth:2
 };
 export default GridSheetOptions;
