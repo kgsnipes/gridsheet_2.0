@@ -1,7 +1,7 @@
 import GridSheetComponent from './component';
 import GridSheetUtil from '../common/util';
 import GridSheetLogger from '../common/logger';
-
+import GridSheetRowResizer from './row_resize_handle';
 class GridSheetCell extends GridSheetComponent
 {
     constructor(element,options)
@@ -23,16 +23,19 @@ class GridSheetCell extends GridSheetComponent
         this.element.setAttribute('id','sheetrow_'+this.rowNumber);
         this.element.style.height=this.options.defaultRowHeight+this.options.dimension.units;
         this.options.parent.element.appendChild(this.element);
+        this.cellContentElement=document.createElement('div');
+        this.cellContentElement.classList.add("cellcontent");
+        this.element.appendChild(this.cellContentElement);
         this.updateSheetHeight();
         if(this.options.isGutter)
         {
             this.autoWidth=true;
             this.element.classList.add("gutter");
             this.addGutterInformation();
-            this.addResizeHandles();
+            
         }
         //this.updateColumnWidth();
-        
+        this.addResizeHandles();
     }
 
     updateSheetHeight()
@@ -47,19 +50,22 @@ class GridSheetCell extends GridSheetComponent
     }
 
     addGutterInformation(){
+        
 
         if(this.rowNumber>0 && this.columnNumber==0 && this.options.isGutter)
         {
             this.cellContent=this.getGutterInformation().row+'';
-            this.element.innerHTML=this.cellContent;
+            
+            this.setContent(this.cellContent);
 
         }
         if(this.rowNumber==0 && this.options.isGutter)
         {
             this.cellContent=this.getGutterInformation().column+'';
-            this.element.innerHTML=this.cellContent;
+            this.setContent(this.cellContent);
 
         }
+
     }
     getGutterInformation()
     {
@@ -98,7 +104,36 @@ class GridSheetCell extends GridSheetComponent
 
     addResizeHandles()
     {
+        this.rowResizeHandle=new GridSheetRowResizer(null,Object.assign({}, this.options, {parent:this,columnNumber:this.columnNumber}));
+    }
 
+    setContent(content)
+    {
+        this.cellContentElement.innerHTML=content;
+    }
+    
+    getContent()
+    {
+        return this.cellContentElement.innerHTML;
+    }
+
+    adjustHeight(dragdiff)
+    {
+       this.element.style.height=(this.getHeight()+dragdiff)+this.options.dimension.units;
+        //this.adjustHeightForAllCellsAcrossColumns(dragdiff);
+    }
+
+    getHeight()
+    {
+        return parseInt(this.element.style.height.substring(0,this.element.style.height.indexOf('px')));
+    }
+
+    adjustHeightForAllCellsAcrossColumns(dragdiff)
+    {
+        let sheet=this.options.parent.options.parent;
+        sheet.columns.forEach(col=>{
+            col.cells[this.rowNumber].adjustHeight(dragdiff);
+        });
     }
 
 

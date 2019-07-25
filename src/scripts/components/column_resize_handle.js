@@ -15,7 +15,7 @@ class GridSheetColumnResizer extends GridSheetComponent
     {
         this.element=document.createElement('div');
         this.element.classList.add('columnresizehandle');
-        this.element.style.width=this.options.columnResizeHandlesWidth+this.options.dimension.units;
+        //this.element.style.width=this.options.columnResizeHandlesWidth+this.options.dimension.units;
         this.element.style.height=(this.options.parent.element.getBoundingClientRect().height+this.options.parent.cells.length*2)+this.options.dimension.units;
         this.element.style.top=0+this.options.dimension.units;
         this.element.style.left=(this.options.parent.getWidth()-(this.options.columnResizeHandlesWidth))+this.options.dimension.units;

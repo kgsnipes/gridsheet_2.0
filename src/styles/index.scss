@@ -1,9 +1,9 @@
 $body-color: black;
 $border-color:#eeeeee;
 $border-innerContainerColor:#000000;
-$border-topbar:red;
-$border-bottombar:green;
-$border-sheetContainerColor:blue;
+$border-topbar:grey;
+$border-bottombar:grey;
+$border-sheetContainerColor:grey;
 $border-sheetButton:1px solid grey;
 $gutter-backgroundColor:#ccc;
 $row-defaultBorderColor:#000000;
@@ -45,6 +45,22 @@ div.gridsheet
           {
               width:inherit;
               border:1px solid $row-defaultBorderColor;
+              div.cellcontent
+              {
+                width:inherit;
+                height:inherit;
+              }
+
+              div.rowresizehandle
+              {
+                position: relative;
+                top:0px;
+                left:0px;
+                width: inherit;
+                height:2px;
+                cursor:ns-resize;
+                background-color: transparent;
+              }
               
           }
           div.gutter
@@ -58,11 +74,12 @@ div.gridsheet
           {
             position: absolute;
             cursor:ew-resize;
+            width:2px;
           }
           div.columnresizehandle_active
           {
             @extend div.columnresizehandle;
-            background-color: $body-color;
+            background-color: transparent;
           }
         }
         
