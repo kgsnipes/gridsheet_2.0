@@ -1,7 +1,7 @@
 import GridSheetComponent from './component';
 import GridSheetCell from  './cell';
 import GridSheetColumnResizer from './column_resize_handle';
-
+import GridSheetUtil from '../common/util';
 class GridSheetColumn extends GridSheetComponent
 {
     constructor(element,options)
@@ -30,7 +30,7 @@ class GridSheetColumn extends GridSheetComponent
         }
         
         this.options.parent.element.appendChild(this.element);
-        this.options.parent.updateSheetWidth();
+        //this.options.parent.updateSheetWidth();
         this.addRows();
         this.addResizeHandles();
     }
@@ -83,7 +83,7 @@ class GridSheetColumn extends GridSheetComponent
     getWidth()
     {
         //return this.element.getBoundingClientRect().width;
-        return parseInt(this.element.style.width.substring(0,this.element.style.width.indexOf('px')));
+        return GridSheetUtil.getPxFromStyle(this.element.style.width);
     }
 
     setLeftPosition(left)
@@ -95,7 +95,7 @@ class GridSheetColumn extends GridSheetComponent
     {
         //return this.element.getBoundingClientRect().left;
         //console.log(this.element.style.left);
-        return parseInt(this.element.style.left.substring(0,this.element.style.left.indexOf('px')));
+        return GridSheetUtil.getPxFromStyle(this.element.style.left);
     }
 
     addResizeHandles()

@@ -1,7 +1,7 @@
 import GridSheetComponent from './component';
 import GridSheetLogger from  '../common/logger';
 import GridSheetSheetButtonContainer from './sheetbuttoncontainer';
-
+import GridSheetSheetScrollPanel from './sheet_button_scrollpanel';
 class GridSheetBottomBar extends GridSheetComponent
 {
     constructor(element,options)
@@ -27,6 +27,7 @@ class GridSheetBottomBar extends GridSheetComponent
     addSheetButtonContainer()
     {
         this.sheetButtonContainer=new GridSheetSheetButtonContainer(null,Object.assign({}, this.options, {parent:this}));
+        this.sheetButtonScrollPane=new GridSheetSheetScrollPanel(null,Object.assign({}, this.options, {parent:this}));
     }
    
 

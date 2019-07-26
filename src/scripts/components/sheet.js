@@ -2,6 +2,7 @@ import GridSheetComponent from './component';
 import GridSheetLogger from  '../common/logger';
 import GridSheetSheetButton from './sheetbutton';
 import GridSheetColumn from './column';
+import GridSheetRowResizeHighlighter from './row_resize_highlighter';
 class GridSheet extends GridSheetComponent
 {
     constructor(element,options)
@@ -21,6 +22,20 @@ class GridSheet extends GridSheetComponent
         this.addSheetDOM();
         this.addSheetButtonToBottomBar();
         this.addColumnsToSheet();
+        //this.addRowResizeHighlighter();
+        //this.addEventListener();
+    }
+
+    addRowResizeHighlighter()
+    {
+        this.rowResizeHighlighter=new GridSheetRowResizeHighlighter(null,Object.assign({}, this.options, {parent:this}));
+    }
+
+
+
+    getRowResizeHighlighter()
+    {
+        return this.rowResizeHighlighter;
     }
 
     addColumnsToSheet()
@@ -39,7 +54,7 @@ class GridSheet extends GridSheetComponent
 
     addSheetDOM()
     {
-        this.logger.info('adding sheet to DOM');
+         //this.logger.info('adding sheet to DOM');
         this.element=document.createElement('div');
         //this.element.style.width=this.options.parent.element.style.width;
         //this.element.style.height=this.options.parent.element.style.height;
@@ -61,27 +76,48 @@ class GridSheet extends GridSheetComponent
         sheetButtonContainer.sheetButtons.push(this.sheetButton);
     }
 
-    showSheet()
+    show()
     {
         this.element.classList.remove('hide');
     }
-    hideSheet()
+    hide()
     {
         this.element.classList.add('hide');
     }
 
-    updateSheetWidth()
-    {
-        this.options.parent.element.style.width=this.addWidthToSheet()+this.options.dimension.units;
-    }
+    // updateSheetWidth()
+    // {
+    //     this.options.parent.element.style.width=this.addWidthToSheet()+this.options.dimension.units;
+    //     this.element.style.width=this.options.parent.element.style.width;
+    // }
 
-    addWidthToSheet()
+    // addWidthToSheet()
+    // {
+    //     let colWidth=0;
+    //    this.columns.forEach(col=>{
+    //         colWidth+=col.getWidth();
+    //    });
+    //    return colWidth;
+    // }
+
+    // getHeight()
+    // {
+    //     return this.element.getBoundingClientRect().height;
+    // }
+    // getTop()
+    // {
+    //     return this.element.getBoundingClientRect().top;
+    // }
+
+    addEventListener()
     {
-        let colWidth=0;
-       this.columns.forEach(col=>{
-            colWidth+=col.getWidth();
-       });
-       return colWidth;
+        this.element.addEventListener('dragover',(evt)=>{
+            if(this.getRowResizeHighlighter().isVisible())
+            {
+                this.getRowResizeHighlighter().setPosition(evt.screenY);
+            }
+            
+        });
     }
 }
 

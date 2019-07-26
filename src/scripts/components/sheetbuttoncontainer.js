@@ -1,6 +1,6 @@
 import GridSheetComponent from './component';
 import GridSheetLogger from  '../common/logger';
-
+import GridSheetUtil from '../common/util';
 class GridSheetSheetButtonContainer extends GridSheetComponent
 {
     constructor(element,options)
@@ -22,10 +22,38 @@ class GridSheetSheetButtonContainer extends GridSheetComponent
 
     addSheetButtonContainerDOM()
     {
+        this.sheetButtonScrollContainer=document.createElement('div');
+        this.sheetButtonScrollContainer.classList.add("sheetbuttonscrollcontainer");
+        this.sheetButtonScrollContainer.setAttribute('id','sheetbuttonscrollcontainer');
+        this.options.parent.element.appendChild(this.sheetButtonScrollContainer);
         this.element=document.createElement('div');
         this.element.classList.add("sheetbuttoncontainer");
         this.element.setAttribute('id','sheetbuttoncontainer');
-        this.options.parent.element.appendChild(this.element);
+        this.sheetButtonScrollContainer.appendChild(this.element);
+    }
+    adjustWidthForSheetButtonContainer()
+    {
+        this.element.style.width=this.getChildrenWidth()+this.options.dimension.units;
+    }
+
+    getChildrenWidth()
+    {
+        let childrenWidth=0;
+        this.sheetButtons.forEach(sb=>{
+            childrenWidth+=GridSheetUtil.getPxFromStyle(sb.element.style.width)+20;
+        });
+        return childrenWidth;
+    }
+
+    scrollSheetContainerToLeft(val)
+    {
+        let leftValue=GridSheetUtil.getPxFromStyle(this.element.style.left)||0;
+        let width=GridSheetUtil.getPxFromStyle(this.element.style.width);
+        console.log((leftValue+val),-width);
+        if((leftValue+val)<=0 && (leftValue+val)>(-width-val))
+        {
+            this.element.style.left=(leftValue+val)+this.options.dimension.units;
+        }
     }
 
     

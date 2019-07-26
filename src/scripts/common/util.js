@@ -25,14 +25,13 @@ class GridSheetUtil
     static getTextDisplayWidth(text,component)
     {
         let fontSpec=this.getFontSpecForComponent(component);
-        console.log(fontSpec);
         return this.displayTextWidth(text,fontSpec);
     }
     static displayTextWidth(text, font) {
         let myCanvas = this.canvas || (this.canvas = document.createElement("canvas"));
         let context = myCanvas.getContext("2d");
         context.font = font;
-        var metrics = context.measureText(text);
+        let metrics = context.measureText(text);
         return metrics.width;
      }
 
@@ -46,6 +45,11 @@ class GridSheetUtil
     
      static reverseString(str) {
         return str.split("").reverse().join("");
+    }
+
+    static getPxFromStyle(styleValue)
+    {
+        return parseInt(styleValue.substring(0,styleValue.indexOf('px')).trim());
     }
     
 }

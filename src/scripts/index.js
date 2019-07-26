@@ -8,7 +8,7 @@ class GridsheetApp
     constructor(element,options)
     {
         this.logger=new GridSheetLogger(this.constructor.name);
-        this.logger.info('entered the gridsheet constructor');
+         //this.logger.info('entered the gridsheet constructor');
         this.element=element;
         this.options=Object.assign({}, GridSheetOptions, options);
         this.initUI();

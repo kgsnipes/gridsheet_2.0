@@ -31,11 +31,22 @@ div.gridsheet
     div.sheetcontainer
     {
       width:inherit;
+      height:inherit;
       div.sheet
       {
         position: absolute;
         top:0px;
         left:0px;
+        height:inherit;
+
+        div.rowhighlighterline
+        {
+          height:1px;
+          background-color:$border-innerContainerColor;
+          position:relative;
+          left:inherit;
+        }
+
         div.column
         {
           position: absolute;
@@ -43,7 +54,7 @@ div.gridsheet
           top:0px;
           div.row
           {
-              width:inherit;
+             // width:inherit;
               border:1px solid $row-defaultBorderColor;
               div.cellcontent
               {
@@ -59,7 +70,8 @@ div.gridsheet
                 width: inherit;
                 height:2px;
                 cursor:ns-resize;
-                background-color: transparent;
+                //background-color: transparent;
+                opacity: 0;
               }
               
           }
@@ -75,6 +87,7 @@ div.gridsheet
             position: absolute;
             cursor:ew-resize;
             width:2px;
+            opacity: 0;
           }
           div.columnresizehandle_active
           {
@@ -96,24 +109,37 @@ div.gridsheet
   {
     position: absolute;
     border:1px solid $border-bottombar;
-    div.sheetbuttoncontainer
+    div.sheetbuttonscrollcontainer
     {
-      width:inherit;
+      width:50%;
       height:inherit;
-      div.sheetbutton
+      overflow:hidden;
+      float:left;
+      div.sheetbuttoncontainer
       {
-        float:left;
-        padding:5px;
-        margin-right:1px;
-        border:$border-sheetButton;
-        cursor: pointer;
-        background-color: #ccc;
+        height:inherit;
+        position: relative;
+        div.sheetbutton
+        {
+          float:left;
+          padding:5px;
+          margin-right:1px;
+          border:$border-sheetButton;
+          cursor: pointer;
+          background-color: #ccc;
+        }
+        div.active
+        {
+          @extend div.sheetbutton;
+          background-color: #ffffff;
+        }
       }
-      div.active
-      {
-        @extend div.sheetbutton;
-        background-color: #ffffff;
-      }
+    }
+    div.sheetbuttonscrollpanel
+    {
+      widows: 10%;
+      padding:5px;
+      float:left;
     }
     
   }

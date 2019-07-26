@@ -30,12 +30,14 @@ class GridSheetSheetContainer extends GridSheetComponent
     
     addSheetsToInnerContainer()
     {
-        this.logger.info('adding sheets');
+         //this.logger.info('adding sheets');
         for(let i=0;i<this.options.initialSheets;i++)
         {
             this.sheets.push(this.addSheetForInnerContainer(this.getSheetName(this.sheetCount,null),this.sheetCount,(this.sheetCount==1)?true:false));
             this.sheetCount++;
         }
+
+        this.options.parent.options.parent.bottomBar.sheetButtonContainer.adjustWidthForSheetButtonContainer();
            
     }
 

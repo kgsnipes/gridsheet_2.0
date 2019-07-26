@@ -22,7 +22,7 @@ class GridSheetSheetButton extends GridSheetComponent
 
     addSheetButtonDOM()
     {
-        this.logger.info('adding sheetbutton to DOM');
+         //this.logger.info('adding sheetbutton to DOM');
         this.element=document.createElement('div');
         //this.element.style.height=this.options.parent.element.style.height;
         
@@ -43,10 +43,10 @@ class GridSheetSheetButton extends GridSheetComponent
         this.element.addEventListener('click',(evt)=>{
             outerContainer.innerContainer.sheetContainer.sheets.forEach(sheet => {
                 if(sheet.sheetNumber===this.sheetNumber){
-                    sheet.showSheet();  
+                    sheet.show();  
                 }
                 else{
-                    sheet.hideSheet();
+                    sheet.hide();
                     sheet.sheetButton.makeInActive();
                 }
             });
@@ -65,7 +65,7 @@ class GridSheetSheetButton extends GridSheetComponent
 
     getSheetButtonWidth()
     {
-        (this.sheetName.length+5)*5;
+       return  (this.sheetName.length+5)*5;
     }
 
 }

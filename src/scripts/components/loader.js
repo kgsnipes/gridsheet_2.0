@@ -22,7 +22,7 @@ class GridSheetLoader extends GridSheetComponent
 
     show()
     {
-        this.logger.info('showing the loader');
+         //this.logger.info('showing the loader');
         return new Promise((resolve,reject)=>{
             this.element.classList.remove("hide");
         });
@@ -30,7 +30,7 @@ class GridSheetLoader extends GridSheetComponent
 
     hide()
     {
-        this.logger.info('hiding the loader');
+         //this.logger.info('hiding the loader');
         return new Promise((resolve,reject)=>{
             this.element.classList.add("hide");
         });

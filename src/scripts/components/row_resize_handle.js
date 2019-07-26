@@ -17,19 +17,22 @@ class GridSheetRowResizer extends GridSheetComponent
         this.element.classList.add('rowresizehandle');
         this.element.setAttribute('draggable','true');
         this.options.parent.element.appendChild(this.element);
+        this.sheet=this.options.parent.options.parent.options.parent;
         this.addEventListener();
     }
 
     addEventListener()
     {
         this.element.addEventListener('dragstart',(evt)=>{
+           // this.sheet.getRowResizeHighlighter().show();
+           // this.sheet.getRowResizeHighlighter().setPosition(evt.screenY);
             evt.dataTransfer.dropEffect = "link";
             this.dragStartYPos=evt.clientY;
             
         });
         this.element.addEventListener('dragend',(evt)=>{
+           // this.sheet.getRowResizeHighlighter().hide();
             this.dragStopYPos=evt.clientY;
-            
             this.resizeRow();
         });
     }

@@ -11,7 +11,7 @@ const GridSheetOptions={
             gutterColumnColor:'#cccccc',
             defaultContentColor:'#000000',
             currentContentColor:'#000000',
-            initialSheets:3,
+            initialSheets:10,
             defaultSheetNamePrefix:'untitled',
             topbarHeight:1,
             bottombarHeight:30,
