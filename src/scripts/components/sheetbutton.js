@@ -1,6 +1,7 @@
 import GridSheetComponent from './component';
 import GridSheetLogger from  '../common/logger';
-
+import GridSheetUtil from '../common/util';
+import { ECONNABORTED } from 'constants';
 class GridSheetSheetButton extends GridSheetComponent
 {
     constructor(element,options)
@@ -33,8 +34,21 @@ class GridSheetSheetButton extends GridSheetComponent
         }
         this.element.setAttribute('id','sheetbutton_'+this.sheetNumber);
         this.element.style.width=this.getSheetButtonWidth()+this.options.dimension.units;
-        this.element.innerHTML=this.sheetName;
+        //this.element.innerHTML=this.sheetName;
         this.options.parent.element.appendChild(this.element);
+        this.sheetNameLabel=document.createElement('label');
+        this.sheetNameLabel.innerText=this.sheetName;
+        
+        this.sheetActions=document.createElement('button');
+        this.sheetActions.classList.add('sheetactions');
+        this.sheetActions.innerText=':';
+        this.element.appendChild(this.sheetActions);
+        this.element.appendChild(this.sheetNameLabel);
+    }
+
+    setPositionForSheetActionButton()
+    {
+       
     }
 
     addEventListener()
@@ -52,6 +66,37 @@ class GridSheetSheetButton extends GridSheetComponent
             });
              this.makeActive();
         });
+
+        this.sheetNameLabel.addEventListener('dblclick',evt=>{
+            this.sheetNameLabel.setAttribute('contenteditable','true');
+        });
+        this.sheetNameLabel.addEventListener('blur',evt=>{
+            this.sheetNameLabel.setAttribute('contenteditable','false');
+        });
+        this.sheetNameLabel.addEventListener('keydown',evt=>{
+            //console.log(evt.code);
+            if(evt.code==='Enter')
+                this.sheetNameLabel.setAttribute('contenteditable','false');
+        });
+
+        this.sheetNameLabel.addEventListener('keypress',evt=>{
+            //console.log(evt.code);
+            if(evt.code!='Enter')
+            {
+                this.adjustSheetButtonWidth(evt.target.innerText);
+            }
+            else if(evt.code==='Backspace')
+            {
+                this.adjustSheetButtonWidth(evt.target.innerText);
+            }
+                
+        });
+    }
+
+    adjustSheetButtonWidth(str)
+    {
+        this.element.style.width=this.getSheetButtonWidthForString(str)+this.options.dimension.units;
+        this.options.parent.adjustWidthForSheetButtonContainer();
     }
 
     makeActive()
@@ -63,9 +108,15 @@ class GridSheetSheetButton extends GridSheetComponent
         this.element.classList.remove('active');
     }
 
+    getSheetButtonWidthForString(str)
+    {
+       return  (str.length+10)*5;
+    }
+
+
     getSheetButtonWidth()
     {
-       return  (this.sheetName.length+5)*5;
+       return  (this.sheetName.length+10)*5;
     }
 
 }

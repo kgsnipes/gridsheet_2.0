@@ -49,7 +49,7 @@ class GridSheetSheetButtonContainer extends GridSheetComponent
     {
         let leftValue=GridSheetUtil.getPxFromStyle(this.element.style.left)||0;
         let width=GridSheetUtil.getPxFromStyle(this.element.style.width);
-        console.log((leftValue+val),-width);
+        
         if((leftValue+val)<=0 && (leftValue+val)>(-width-val))
         {
             this.element.style.left=(leftValue+val)+this.options.dimension.units;

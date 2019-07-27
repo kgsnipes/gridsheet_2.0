@@ -127,6 +127,20 @@ div.gridsheet
           border:$border-sheetButton;
           cursor: pointer;
           background-color: #ccc;
+
+          label
+          {
+            position: relative;
+            left:-10%;
+          }
+          button.sheetactions
+          {
+            position: relative;
+            top:0px;
+            left:80%;
+            font-weight: bolder;
+            
+          }
         }
         div.active
         {
