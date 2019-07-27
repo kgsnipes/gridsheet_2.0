@@ -132,12 +132,18 @@ div.gridsheet
           {
             position: relative;
             left:-10%;
+            
+          }
+          input {
+            position: relative;
+            left: -5%;
+            top: -18px;
           }
           button.sheetactions
           {
             position: relative;
             top:0px;
-            left:80%;
+            
             font-weight: bolder;
             
           }

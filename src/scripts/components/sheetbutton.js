@@ -35,15 +35,26 @@ class GridSheetSheetButton extends GridSheetComponent
         this.element.setAttribute('id','sheetbutton_'+this.sheetNumber);
         this.element.style.width=this.getSheetButtonWidth()+this.options.dimension.units;
         //this.element.innerHTML=this.sheetName;
+        this.sheetActions=document.createElement('button');
+        this.sheetActions.classList.add('sheetactions');
+        this.sheetActions.innerText=':';
+        this.sheetActions.style.left=(this.getSheetButtonWidthForString(this.sheetName)-20)+this.options.dimension.units;
+
+
         this.options.parent.element.appendChild(this.element);
         this.sheetNameLabel=document.createElement('label');
         this.sheetNameLabel.innerText=this.sheetName;
         
-        this.sheetActions=document.createElement('button');
-        this.sheetActions.classList.add('sheetactions');
-        this.sheetActions.innerText=':';
+        this.sheetNameInput=document.createElement('input');
+        this.sheetNameInput.setAttribute('type','text');
+        this.sheetNameInput.classList.add('hide');
+        this.sheetNameInput.style.width=(this.getSheetButtonWidthForString(this.sheetName)-20)+this.options.dimension.units;
+        this.sheetNameInput.value=this.sheetNameLabel.innerText;
+        
+       
         this.element.appendChild(this.sheetActions);
         this.element.appendChild(this.sheetNameLabel);
+        this.element.appendChild(this.sheetNameInput);
     }
 
     setPositionForSheetActionButton()
@@ -68,34 +79,47 @@ class GridSheetSheetButton extends GridSheetComponent
         });
 
         this.sheetNameLabel.addEventListener('dblclick',evt=>{
-            this.sheetNameLabel.setAttribute('contenteditable','true');
+            this.sheetNameInput.classList.remove('hide');
+            this.sheetNameLabel.classList.add('hide');
         });
-        this.sheetNameLabel.addEventListener('blur',evt=>{
-            this.sheetNameLabel.setAttribute('contenteditable','false');
+        this.sheetNameInput.addEventListener('blur',evt=>{
+            this.sheetNameInput.classList.add('hide');
+            this.sheetNameLabel.classList.remove('hide');
+            this.sheetNameLabel.innerText=this.sheetNameInput.value;
+            this.sheetName=this.sheetNameInput.value;
+            this.adjustSheetButtonWidth(evt.target.value);
         });
-        this.sheetNameLabel.addEventListener('keydown',evt=>{
+        this.sheetNameInput.addEventListener('keydown',evt=>{
             //console.log(evt.code);
             if(evt.code==='Enter')
-                this.sheetNameLabel.setAttribute('contenteditable','false');
-        });
-
-        this.sheetNameLabel.addEventListener('keypress',evt=>{
-            //console.log(evt.code);
-            if(evt.code!='Enter')
             {
-                this.adjustSheetButtonWidth(evt.target.innerText);
-            }
-            else if(evt.code==='Backspace')
-            {
-                this.adjustSheetButtonWidth(evt.target.innerText);
+                this.sheetNameInput.classList.add('hide');
+                this.sheetNameLabel.classList.remove('hide');
+                this.sheetNameLabel.innerText=this.sheetNameInput.value;
+                this.sheetName=this.sheetNameInput.value;
+                this.adjustSheetButtonWidth(evt.target.value);
             }
                 
         });
+
+        // this.sheetNameInput.addEventListener('keypress',evt=>{
+        //     //console.log(evt.code);
+        //     if(evt.code!='Enter')
+        //     {
+        //         this.adjustSheetButtonWidth(evt.target.value);
+        //     }
+        //     else if(evt.code==='Backspace')
+        //     {
+        //         this.adjustSheetButtonWidth(evt.target.value);
+        //     }
+                
+        // });
     }
 
     adjustSheetButtonWidth(str)
     {
         this.element.style.width=this.getSheetButtonWidthForString(str)+this.options.dimension.units;
+       // this.sheetActions.style.left=(this.getSheetButtonWidthForString(str)-20)+this.options.dimension.units;
         this.options.parent.adjustWidthForSheetButtonContainer();
     }
 
@@ -110,7 +134,10 @@ class GridSheetSheetButton extends GridSheetComponent
 
     getSheetButtonWidthForString(str)
     {
-       return  (str.length+10)*5;
+        if(this.sheetActions)
+            return  (str.length+10)*5+(this.sheetActions.getBoundingClientRect().width);
+        else
+            return  (str.length+10)*5;
     }
 
 
