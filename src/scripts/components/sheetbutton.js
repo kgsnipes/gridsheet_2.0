@@ -1,7 +1,7 @@
 import GridSheetComponent from './component';
 import GridSheetLogger from  '../common/logger';
 import GridSheetUtil from '../common/util';
-import { ECONNABORTED } from 'constants';
+
 class GridSheetSheetButton extends GridSheetComponent
 {
     constructor(element,options)
@@ -31,26 +31,29 @@ class GridSheetSheetButton extends GridSheetComponent
         if(this.options.isActive)
         {
             this.element.classList.add("active");
-        }
+        }   
         this.element.setAttribute('id','sheetbutton_'+this.sheetNumber);
-        this.element.style.width=this.getSheetButtonWidth()+this.options.dimension.units;
+        this.element.style.width=this.getSheetButtonWidthForString(this.sheetName)+this.options.dimension.units;
+
+        this.options.parent.element.appendChild(this.element);
+       
         //this.element.innerHTML=this.sheetName;
         this.sheetActions=document.createElement('button');
         this.sheetActions.classList.add('sheetactions');
         this.sheetActions.innerText=':';
-        this.sheetActions.style.left=(this.getSheetButtonWidthForString(this.sheetName)-20)+this.options.dimension.units;
+        console.log('sheet action left'+this.getSheetButtonWidthForString(this.sheetName));
+        this.sheetActions.style.left=(this.getSheetButtonWidthForString(this.sheetName)+20)+this.options.dimension.units;
 
-
-        this.options.parent.element.appendChild(this.element);
         this.sheetNameLabel=document.createElement('label');
         this.sheetNameLabel.innerText=this.sheetName;
         
         this.sheetNameInput=document.createElement('input');
         this.sheetNameInput.setAttribute('type','text');
         this.sheetNameInput.classList.add('hide');
-        this.sheetNameInput.style.width=(this.getSheetButtonWidthForString(this.sheetName)-20)+this.options.dimension.units;
+        this.sheetNameInput.style.width=(this.getSheetButtonWidthForString(this.sheetName))+this.options.dimension.units;
         this.sheetNameInput.value=this.sheetNameLabel.innerText;
         
+       
        
         this.element.appendChild(this.sheetActions);
         this.element.appendChild(this.sheetNameLabel);
@@ -81,6 +84,8 @@ class GridSheetSheetButton extends GridSheetComponent
         this.sheetNameLabel.addEventListener('dblclick',evt=>{
             this.sheetNameInput.classList.remove('hide');
             this.sheetNameLabel.classList.add('hide');
+            this.sheetNameInput.style.width=(this.getSheetButtonWidthForString(this.sheetName)-(this.sheetActions.getBoundingClientRect().width))+this.options.dimension.units;
+            this.sheetNameInput.focus();
         });
         this.sheetNameInput.addEventListener('blur',evt=>{
             this.sheetNameInput.classList.add('hide');
@@ -119,7 +124,7 @@ class GridSheetSheetButton extends GridSheetComponent
     adjustSheetButtonWidth(str)
     {
         this.element.style.width=this.getSheetButtonWidthForString(str)+this.options.dimension.units;
-       // this.sheetActions.style.left=(this.getSheetButtonWidthForString(str)-20)+this.options.dimension.units;
+        this.sheetActions.style.left=(this.getSheetButtonWidthForString(str)-(this.sheetActions.getBoundingClientRect().width))+this.options.dimension.units;
         this.options.parent.adjustWidthForSheetButtonContainer();
     }
 
@@ -134,17 +139,28 @@ class GridSheetSheetButton extends GridSheetComponent
 
     getSheetButtonWidthForString(str)
     {
+        // if(this.sheetActions)
+        //     return  (str.length+10)*5+(this.sheetActions.getBoundingClientRect().width);
+        // else
+        //     return  (str.length+10)*5;
+
         if(this.sheetActions)
-            return  (str.length+10)*5+(this.sheetActions.getBoundingClientRect().width);
+        {
+            return  GridSheetUtil.getTextDisplayWidth(str+Array(4).fill(' ').join(''),this)+(this.sheetActions.getBoundingClientRect().width)+(this.sheetActions.getBoundingClientRect().width*2);
+        }
         else
-            return  (str.length+10)*5;
+        {
+            console.log("else");
+            return  GridSheetUtil.getTextDisplayWidth(str+Array(20).fill(' ').join(''),this);
+        }
+            
     }
 
 
-    getSheetButtonWidth()
-    {
-       return  (this.sheetName.length+10)*5;
-    }
+    // getSheetButtonWidth()
+    // {
+    //    return  (this.sheetName.length+10)*5;
+    // }
 
 }
 
