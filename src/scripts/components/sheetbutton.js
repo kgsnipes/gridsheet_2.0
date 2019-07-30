@@ -123,8 +123,12 @@ class GridSheetSheetButton extends GridSheetComponent
 
     adjustSheetButtonWidth(str)
     {
-        this.element.style.width=this.getSheetButtonWidthForString(str)+this.options.dimension.units;
-        this.sheetActions.style.left=(this.getSheetButtonWidthForString(str)-(this.sheetActions.getBoundingClientRect().width))+this.options.dimension.units;
+        
+        this.sheetNameLabel.style.width=this.getWidthForSheetNameLabel(str)+this.options.dimension.units;
+        this.sheetNameInput.style.width=this.sheetNameLabel.style.width;
+       // this.sheetActions.style.left=(this.getSheetButtonWidthForString(str)-(this.sheetActions.getBoundingClientRect().width))+this.options.dimension.units;
+        this.sheetActions.style.left=(GridSheetUtil.getPxFromStyle(this.sheetNameLabel.style.width)-this.sheetActions.getBoundingClientRect().width)+this.options.dimension.units;
+        this.element.style.width=this.sheetNameLabel.style.width;
         this.options.parent.adjustWidthForSheetButtonContainer();
     }
 
@@ -139,21 +143,20 @@ class GridSheetSheetButton extends GridSheetComponent
 
     getSheetButtonWidthForString(str)
     {
-        // if(this.sheetActions)
-        //     return  (str.length+10)*5+(this.sheetActions.getBoundingClientRect().width);
-        // else
-        //     return  (str.length+10)*5;
-
         if(this.sheetActions)
         {
-            return  GridSheetUtil.getTextDisplayWidth(str+Array(4).fill(' ').join(''),this)+(this.sheetActions.getBoundingClientRect().width)+(this.sheetActions.getBoundingClientRect().width*2);
+            return  GridSheetUtil.getTextDisplayWidth(str+Array(4).fill(' ').join(''),this)+(this.sheetActions.getBoundingClientRect().width);
         }
         else
         {
-            console.log("else");
             return  GridSheetUtil.getTextDisplayWidth(str+Array(20).fill(' ').join(''),this);
         }
             
+    }
+
+    getWidthForSheetNameLabel(str)
+    {
+        return  GridSheetUtil.getTextDisplayWidth(str+Array(20).fill(' ').join(''),this);
     }
 
 

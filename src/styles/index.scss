@@ -80,6 +80,10 @@ div.gridsheet
               background-color: $gutter-backgroundColor;
               border:1px solid $row-defaultBorderColor;
               text-align: center;
+              div.cellcontent
+              {
+                margin-top:5px;
+              }
           }
 
           div.columnresizehandle
@@ -137,7 +141,7 @@ div.gridsheet
           }
           input {
             position: relative;
-            top:-19px;
+            //top:-19px;
             left:0px;
           }
           button.sheetactions
@@ -160,8 +164,8 @@ div.gridsheet
       widows: 10%;
       padding:5px;
       float:left;
+      border-left:$border-sheetButton;
     }
-    
   }
 }
 
