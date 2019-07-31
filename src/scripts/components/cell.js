@@ -22,6 +22,7 @@ class GridSheetCell extends GridSheetComponent
         
         this.element.setAttribute('id','sheetrow_'+this.rowNumber);
         this.element.style.height=this.options.defaultRowHeight+this.options.dimension.units;
+        this.element.style.width=this.options.parent.element.style.width;
         this.options.parent.element.appendChild(this.element);
         this.cellContentElement=document.createElement('div');
         this.cellContentElement.classList.add("cellcontent");
@@ -36,6 +37,7 @@ class GridSheetCell extends GridSheetComponent
         }
         //this.updateColumnWidth();
         this.addResizeHandles();
+        this.addEventListener();
     }
 
     updateSheetHeight()
@@ -134,6 +136,30 @@ class GridSheetCell extends GridSheetComponent
         sheet.columns.forEach(col=>{
             col.cells[this.rowNumber].adjustHeight(dragdiff);
         });
+    }
+
+    addEventListener()
+    {
+        this.sheetContainer=this.options.parent.options.parent.options.parent;
+        if(!this.options.isGutter)
+        {
+            this.element.addEventListener('dblclick',evt=>{
+                this.hideChildren();
+                this.sheetContainer.sheetEditorCell.showAtCell(this);
+            });
+        }
+        
+    }
+
+    hideChildren()
+    {
+        this.cellContentElement.classList.add('hide');
+        this.rowResizeHandle.element.classList.add('hide');
+    }
+    showChildren()
+    {
+        this.cellContentElement.classList.remove('hide');
+        this.rowResizeHandle.element.classList.remove('hide');
     }
 
 

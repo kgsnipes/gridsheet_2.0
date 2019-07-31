@@ -62,9 +62,17 @@ class GridSheetColumn extends GridSheetComponent
            if(width!=0)
            {
             this.setWidth(width);
+            this.cascadeWidthToChildren();
            }
             
         }
+    }
+
+    cascadeWidthToChildren()
+    {
+        this.cells.forEach(cell=>{
+            cell.element.style.width=this.element.style.width;
+        });
     }
 
     setWidth(width)

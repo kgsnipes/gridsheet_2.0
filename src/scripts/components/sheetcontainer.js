@@ -1,6 +1,7 @@
 import GridSheetComponent from './component';
 import GridSheet from './sheet';
 import GridSheetLogger from  '../common/logger';
+import GridSheetEditorCell from './sheet_editor_cell';
 
 class GridSheetSheetContainer extends GridSheetComponent
 {
@@ -18,8 +19,12 @@ class GridSheetSheetContainer extends GridSheetComponent
     {
         this.createSheetContainerDOM();
         this.addSheetsToInnerContainer();
+        this.addSheetEditorCell();
     }
 
+    addSheetEditorCell(){
+        this.sheetEditorCell=new GridSheetEditorCell(null,Object.assign({}, this.options, {parent:this}));
+    }
     createSheetContainerDOM()
     {
         this.element=document.createElement('div');
