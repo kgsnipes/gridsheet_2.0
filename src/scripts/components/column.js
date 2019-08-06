@@ -85,7 +85,7 @@ class GridSheetColumn extends GridSheetComponent
         let previousWidth=this.element.getBoundingClientRect().width;
         this.element.style.width=(previousWidth+width)+this.options.dimension.units;
         let currentWidth=this.element.getBoundingClientRect().width;
-       
+        this.cascadeWidthToChildren();
         this.updateOtherColumnsLeftPosition(width);
     }
     getWidth()

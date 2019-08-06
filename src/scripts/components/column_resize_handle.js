@@ -41,6 +41,7 @@ class GridSheetColumnResizer extends GridSheetComponent
     resizeColumn()
     {
         let dragDistance=this.dragStopXPos-this.dragStartXPos;
+       
         this.options.parent.adjustWidth(dragDistance);
         this.element.style.left=(this.getLeftPosition()+dragDistance)+this.options.dimension.units;
     }

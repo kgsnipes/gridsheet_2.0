@@ -37,9 +37,9 @@ class GridSheetUtil
 
      static getFontSpecForComponent(component)
      {
-         let fontStyle=(component.element.computedStyleMap().get('font-style'))?component.element.computedStyleMap().get('font-style').value:'normal';
-         let fontSize=(component.element.computedStyleMap().get('font-size'))?component.element.computedStyleMap().get('font-size').value:'12';
-         let fontFamily=(component.element.computedStyleMap().get('font-family'))?component.element.computedStyleMap().get('font-family').value:component.options.defaultFontFamily;
+         let fontStyle=(component.element.style.fontStyle)?component.element.style.fontStyle:'normal';
+         let fontSize=(component.element.style.fontSize)?component.element.style.fontSize:'12';
+         let fontFamily=(component.element.style.fontFamily)?component.element.style.fontFamily:component.options.defaultFontFamily;
         return fontStyle+' '+fontSize+'px '+fontFamily;
      }
     

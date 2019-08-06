@@ -137,13 +137,14 @@ div.gridsheet
           {
             position: relative;
             top:0px;
-            left:0px;
-            
+            //left:0px;
+            left:-20px;
           }
           input {
             position: relative;
             //top:-19px;
-            left:0px;
+            //left:0px;
+            left:-20px;
           }
           button.sheetactions
           {
