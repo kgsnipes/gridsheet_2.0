@@ -1,0 +1,105 @@
+div.gridsheet {
+  color: black;
+  font-family: Helvetica;
+  overflow: hidden;
+  border: 1px solid #eeeeee; }
+  div.gridsheet div.loader {
+    position: absolute;
+    top: inherit;
+    left: inherit;
+    background-color: #ccc;
+    opacity: 0.5; }
+  div.gridsheet div.innercontainer {
+    border: 1px solid #000000;
+    overflow: scroll;
+    position: absolute;
+    top: inherit; }
+    div.gridsheet div.innercontainer div.sheetcontainer {
+      width: inherit;
+      height: inherit; }
+      div.gridsheet div.innercontainer div.sheetcontainer div.sheet {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: inherit; }
+        div.gridsheet div.innercontainer div.sheetcontainer div.sheet div.rowhighlighterline {
+          height: 1px;
+          background-color: #000000;
+          position: relative;
+          left: inherit; }
+        div.gridsheet div.innercontainer div.sheetcontainer div.sheet div.column {
+          position: absolute;
+          top: 0px; }
+          div.gridsheet div.innercontainer div.sheetcontainer div.sheet div.column div.row {
+            border: 1px solid #000000; }
+            div.gridsheet div.innercontainer div.sheetcontainer div.sheet div.column div.row div.cellcontent {
+              width: inherit;
+              height: inherit;
+              overflow: scroll; }
+            div.gridsheet div.innercontainer div.sheetcontainer div.sheet div.column div.row div.rowresizehandle {
+              position: relative;
+              top: 0px;
+              left: 0px;
+              width: inherit;
+              height: 2px;
+              cursor: ns-resize;
+              opacity: 0; }
+          div.gridsheet div.innercontainer div.sheetcontainer div.sheet div.column div.gutter {
+            background-color: #ccc;
+            border: 1px solid #000000;
+            text-align: center; }
+            div.gridsheet div.innercontainer div.sheetcontainer div.sheet div.column div.gutter div.cellcontent {
+              margin-top: 5px; }
+          div.gridsheet div.innercontainer div.sheetcontainer div.sheet div.column div.columnresizehandle, div.gridsheet div.innercontainer div.sheetcontainer div.sheet div.column div.columnresizehandle_active {
+            position: absolute;
+            cursor: ew-resize;
+            width: 2px;
+            opacity: 0; }
+          div.gridsheet div.innercontainer div.sheetcontainer div.sheet div.column div.columnresizehandle_active {
+            background-color: transparent; }
+  div.gridsheet div.topbar {
+    position: absolute;
+    top: inherit;
+    border: 1px solid grey; }
+  div.gridsheet div.bottombar {
+    position: absolute;
+    border: 1px solid grey; }
+    div.gridsheet div.bottombar div.sheetbuttonscrollcontainer {
+      width: 50%;
+      height: inherit;
+      overflow: hidden;
+      float: left; }
+      div.gridsheet div.bottombar div.sheetbuttonscrollcontainer div.sheetbuttoncontainer {
+        height: inherit;
+        position: relative; }
+        div.gridsheet div.bottombar div.sheetbuttonscrollcontainer div.sheetbuttoncontainer div.sheetbutton, div.gridsheet div.bottombar div.sheetbuttonscrollcontainer div.sheetbuttoncontainer div.active {
+          float: left;
+          padding: 5px;
+          margin-right: 1px;
+          border: 1px solid grey;
+          cursor: pointer;
+          background-color: #ccc; }
+          div.gridsheet div.bottombar div.sheetbuttonscrollcontainer div.sheetbuttoncontainer div.sheetbutton label, div.gridsheet div.bottombar div.sheetbuttonscrollcontainer div.sheetbuttoncontainer div.active label {
+            position: relative;
+            top: 0px;
+            left: -20px; }
+          div.gridsheet div.bottombar div.sheetbuttonscrollcontainer div.sheetbuttoncontainer div.sheetbutton input, div.gridsheet div.bottombar div.sheetbuttonscrollcontainer div.sheetbuttoncontainer div.active input {
+            position: relative;
+            left: -20px; }
+          div.gridsheet div.bottombar div.sheetbuttonscrollcontainer div.sheetbuttoncontainer div.sheetbutton button.sheetactions, div.gridsheet div.bottombar div.sheetbuttonscrollcontainer div.sheetbuttoncontainer div.active button.sheetactions {
+            position: relative;
+            top: 0px;
+            font-weight: bolder; }
+        div.gridsheet div.bottombar div.sheetbuttonscrollcontainer div.sheetbuttoncontainer div.active {
+          background-color: #ffffff; }
+    div.gridsheet div.bottombar div.sheetbuttonscrollpanel {
+      widows: 10%;
+      padding: 5px;
+      float: left;
+      border-left: 1px solid grey; }
+
+.hide {
+  display: none; }
+
+
+/*# sourceMappingURL=bundle.css.map*/
